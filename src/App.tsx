@@ -1,18 +1,19 @@
-import ListGroup from "./components/ListGroup";
+import { useState } from "react";
+import ExpenseList from "./expense-tracker/components/ExpenseList";
 
 function App() {
-  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"]; // test data for the population of the unordered list
-
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "aaa", amount: 10, category: "Utilities" },
+    { id: 2, description: "bbb", amount: 15, category: "Utilities" },
+    { id: 3, description: "ccc", amount: 20, category: "Utilities" },
+    { id: 4, description: "ddd", amount: 25, category: "Utilities" },
+  ]);
 
   return (
     <div>
-      <ListGroup
-        items={items} // passing in the items array above
-        heading="Cities" // passing in the string "Cities"
-        onSelectItem={handleSelectItem} // in the component, there is a function called onSelectItem that takes in an item and returns void. Here, when the function onSelectItem is run, it also runs the handler function defined above, which prints the item to the console
+      <ExpenseList
+        expenses={expenses}
+        onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))}
       />
     </div>
   );
